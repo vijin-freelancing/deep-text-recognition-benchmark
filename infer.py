@@ -40,7 +40,9 @@ def infer(args):
         torch.hub.download_url_to_file(args.model, checkpoint)
     else:
         checkpoint = args.model
-    model = torch.load(checkpoint)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = torch.load(checkpoint, map_location=device)
     model.eval()
     with torch.no_grad():
         pred = model(img, seqlen=converter.batch_max_length)
