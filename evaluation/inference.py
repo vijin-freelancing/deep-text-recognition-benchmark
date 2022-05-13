@@ -77,6 +77,10 @@ if __name__ == '__main__':
 
     ann_df = pd.read_csv(annotation_file)
 
+    # CAitwP5Za_I_10, c4BLVznuWnU_13 has annotation issues
+    ann_df = ann_df[
+        ~ann_df.video_id.isin(['CAitwP5Za_I_10', 'c4BLVznuWnU_13'])]
+
     pred_data = []
     for _, row in tqdm(ann_df.iterrows()):
         image_path = os.path.join(frames_dir, f"{row['video_id']}-{row['frame_id']}-{row['word_id']}.jpg")
